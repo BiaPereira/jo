@@ -8,7 +8,6 @@ from bisect import bisect
 from matplotlib.backends.backend_pdf import PdfPages
 import math
 
-
 #Opens file
 import pandas as pd
 
