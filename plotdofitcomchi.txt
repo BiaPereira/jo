@@ -1,0 +1,2 @@
+plt.figtext(.139, 0.800, r'$\frac{\chi^{2}}{NDF}$',fontsize=13)
+plt.figtext(.19, 0.8,'='+valorchi)

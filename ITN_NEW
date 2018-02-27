@@ -1,0 +1,133 @@
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import openpyxl
+from lmfit.models import GaussianModel, ConstantModel
+from scipy.stats import norm, gaussian_kde
+from bisect import bisect
+from matplotlib.backends.backend_pdf import PdfPages
+import math
+
+
+#Opens file
+import pandas as pd
+
+book = openpyxl.load_workbook('LiCl_Logbook.xlsx')
+
+sheet = book.active
+
+print('\n\n\n\n')
+
+#get the values for a given column
+#values = book['Energia'].values
+#print(a3)
+#lent = len(a3)
+
+
+filename = 'w'
+file = open(filename)
+print ('newfile',file)
+fileR = file.read()
+spl = fileR.split(' ', -1)
+print (type(spl))
+len1 = len(spl)
+print (len)
+print(spl)
+area1,area2,c1,c2,fwhm1,fwhm2 = [],[],[],[],[],[]
+i=0
+energia = []
+
+for w in range (11,len1,82):
+    print(spl[w:len1])
+    area1.append(float(spl[w]))
+    c1.append(float(spl[w+12]))
+    fwhm1.append(float(spl[w+25]))
+    area2.append(float((spl[w+41])))
+    c2.append(float((spl[w +53])))
+    fwhm2.append(float(spl[w + 66]))
+    i=i+1
+
+for j in range (3,i+3,1):
+#    for i in range(1, 100, 1):
+#        loc = sheet.cell(row=i, column=4)
+#        if loc.value == sp1[2:tam - 4]:
+#            print(loc)
+#            lin = loc.row
+    cel = sheet.cell(row=j, column = 4)
+    valor = cel.value
+    energia.append(valor)
+
+#filename2 = 'LiCl2'
+#file2 = open(filename2)
+#print ('newfile',file2)
+#fileR2 = file2.read()
+#sp2 = fileR2.split(' ', -1)
+#print (type(sp2))
+#len2 = len(sp2)
+#print (len2)
+#area12,area22,c12,c22,fwhm12,fwhm22 = [],[],[],[],[],[]
+#k=0
+#for r in range (11,len2,87):
+#    print(sp2[r:len2])
+#    area12.append(float(sp2[r]))
+#    print(area12)
+#    c12.append(float(sp2[r+12]))
+#    print(c12)
+#    fwhm12.append(float(sp2[r+25]))
+#    print(fwhm12)
+#    area22.append(float((sp2[r+46])))
+#    print(area22)
+#    c22.append(float((sp2[r + 58])))
+#    print(c22)
+#    fwhm22.append(float(sp2[r + 71]))
+#    print(fwhm22)
+#    k=k+1
+
+
+plt.subplot(1,3,1)
+plt.plot(energia,area1, 'b+', color = 'green', label = 'Sem Relação 1')
+plt.plot(energia, area2, 'b+', color = 'blue', label = 'Sem Relação 2')
+#plt.plot(energia,area12, color = 'orange', label = 'Com Relação 1')
+#plt.plot(energia, area22, color = 'black', label = 'Com Relação 2')
+plt.ylabel('Area')
+plt.xlabel('Energia')
+
+plt.subplot(1,3,2)
+plt.plot(energia,c1, 'b+', color = 'green', label = 'Sem Relação 1' )
+plt.plot(energia, c2, 'b+', color = 'blue',label = 'Sem Relação 1')
+#plt.plot(energia,c12, color = 'orange', label = 'Com Relação 1')
+#plt.plot(energia, c22, color = 'black', label = 'Com Relação 2')
+plt.ylabel('Centroide')
+plt.xlabel('Energia')
+
+plt.subplot(1,3,3)
+plt.plot(energia,fwhm1,'b+', color = 'green',  label = 'Sem Relação 1')
+plt.plot(energia, fwhm2, 'b+', color = 'blue',label = 'Sem Relação 1')
+#plt.plot(energia,fwhm12, color = 'orange', label = 'Com Relação 1')
+#plt.plot(energia, fwhm22, color = 'black', label = 'Com Relação 2')
+plt.ylabel('FWHM')
+plt.xlabel('Energia')
+
+plt.tight_layout()
+plt.show()
+file.close()
+
+#get a data frame with selected columns
+#FORMAT = ['Col_1', 'Col_2', 'Col_3']
+#excel_data_selected = excel_data[FORMAT]
+
+
+
+
+#print(Str[13:20])
+#new=Str.split(' ',-1)
+# print('novo', new)
+# print(new[87])
+# let = len(new)
+# print (let)
+# for i in range(87, let, 37):
+  #  print (new[i])
+
+#sheet = book.sheet_by_name('sheet')
+#print(sheet)
+#tam = len(filename)

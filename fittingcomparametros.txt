@@ -1,0 +1,11 @@
+def k (M2,teta):
+    kli = ((((M2**2-(1.67*10**-27)**2*(sin(teta))**2)**(1/2)+(1.67*10**-27*sin(teta)))/((1.67*10**-27)+M2))**2)
+    return kli
+
+def w6li (kli1, kli2, teta, w7li):
+    w6 = ((kli1+acos(teta))/(kli2+acos(teta)))*w7li
+    return w6
+
+def newgaussian(x, A,index_x, w6):
+    newgauss = (A / ((w6/ (np.log(4)) ** (1 / 2)))) * np.exp( -2 * ((x - index_x) ** 2) / ((w6 / (np.log(4)) ** (1 / 2)) ** 2))
+    return newgauss
