@@ -197,7 +197,7 @@ if FWHMyy in yye:
 
 else:
     y2 = sorted(yye) #order
-    print (y2)
+    print ('apro',y2)
     index_FWHM_y2 = bisect(y2,FWHMyy)
     #print ('index_FWHM_y2',index_FWHM_y2)
     number = y2[index_FWHM_y2]
